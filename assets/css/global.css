@@ -1,0 +1,27 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f6f8fc;
+}
+
+.content {
+    padding: 1rem;
+    background-color: #fff;
+    height: 100vh;
+}
+
+@media screen and (min-width: 768px) {
+    .content {
+      max-width: 768px;
+      height: auto;
+      margin: 1rem auto;
+      border-radius: 1rem;
+      box-shadow: 0 0 2rem rgba(50, 50, 50, .1);
+    }
+}
