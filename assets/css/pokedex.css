@@ -51,11 +51,13 @@
     font-size: .7rem;
     text-align: center;
     filter: brightness(1.1);
-    transition-duration: .3s;
+    transition-duration: .2s;
+    transition-timing-function: ease-in-out;
 }
 
 .pokemon .detail .types .type:hover {
     transform: scale(1.2);
+    border: #fff solid 1px;
 }
 
 .paginator {

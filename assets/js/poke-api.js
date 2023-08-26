@@ -12,8 +12,8 @@ function pokeApiDetailtoModel(detail) {
     return pokemon;
 }
 
-pokeApi.getPokemonDetail = async (pokemon) => {
-    return fetch(pokemon.url)
+pokeApi.getPokemonDetail = async (url) => {
+    return fetch(url)
         .then(response => response.json())
         .then(detail => pokeApiDetailtoModel(detail))
         .catch(error => console.log(error));
@@ -23,7 +23,7 @@ pokeApi.getPokemonList = async (url, limit, offset) => {
     return fetch(`${url}?limit=${limit}&offset=${offset}`)
         .then(response => response.json())
         .then(data => data.results)
-        .then(pokemons => pokemons.map(pokeApi.getPokemonDetail))
+        .then(pokemons => pokemons.map(poke => pokeApi.getPokemonDetail(poke.url)))
         .then(responseDetail => Promise.all(responseDetail))
         .then(detail => detail)
         .catch(error => console.log(error))

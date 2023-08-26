@@ -14,7 +14,12 @@ async function loadPokemons(url, limit, offset) {
     .then((pokemons = []) => {
         pokemons.map(pokemon => pokemonList.appendChild(Pokemon.createCardHTML(pokemon)));
     })
-}10
+    .then(() => {
+        const pokeCard = document.querySelectorAll('.pokemon');
+        [...pokeCard].map(card => card.addEventListener('click', clickOnCardPokemon));
+    })
+}
+
 
 btnLoadMore.addEventListener('click', () => {
     offset += limit;
@@ -28,4 +33,15 @@ btnLoadMore.addEventListener('click', () => {
 })
 
 loadPokemons(url, limit, offset);
+
+
+
+function clickOnCardPokemon(card) {
+    const isDivPokemon = card.target.classList.contains('pokemon');
+    const isElementChild = card.target.parentElement.closest('.pokemon');
+    const pokemon = isDivPokemon ? isDivPokemon : isElementChild;
+    const pokemonName = pokemon.querySelector('.name').innerHTML;
+
+    location.assign(location.protocol + "//" + location.hostname + ':' + location.port + `/pokemon-detail.html?pokemon=${pokemonName}`);
+}
 
