@@ -1,65 +1,27 @@
 export default class Pokemon {
 
-    constructor(
-        number = "",
-        name = "",
-        types = [],
-        image = ""
-    ) {
-        this.number = number;
-        this.name = name;
-        this.types = types;
+    constructor(pokemonDetail) {
+        this.number = pokemonDetail.id;
+        this.name = pokemonDetail.name;
+        [...this.types] = pokemonDetail.types.map(i => i.type.name);
         this.type = this.types[0];
-        this.image = image;
+        this.image = pokemonDetail.sprites.other["official-artwork"].front_default;
+        this.height = pokemonDetail.height;
+        this.weight = pokemonDetail.weight;
+        [...this.abilities] = pokemonDetail.abilities.map(i => i.ability.name);
+        [...this.moves] = pokemonDetail.moves.map(i => i.move.name);
     }
 
-    static createCardHTML = (pokemon) => {
-        const liPokemon = document.createElement('li');
-        liPokemon.classList.add('pokemon', pokemon.type);
-    
-        // header
-        const divHeader = document.createElement('div');
-        divHeader.classList = 'header';
-        
-        const spamNumber = document.createElement('spam');
-        spamNumber.classList = 'number';
-        spamNumber.innerText = '#' + String(pokemon.number).padStart(3,'0');
-    
-        const spamName = document.createElement('spam');
-        spamName.classList = 'name';
-        spamName.innerText = pokemon.name;
-        
-        divHeader.appendChild(spamNumber);
-        divHeader.appendChild(spamName);
-        
-        // detail
-        const divDetail = document.createElement('div');
-        divDetail.classList = 'detail';
-        
-        const olTypes = document.createElement('ol');
-        olTypes.classList = 'types';
-        
-        this.createTypesHTML(pokemon.types).map(type => olTypes.appendChild(type));
-        
-        const img = document.createElement('img');
-        img.src = pokemon.image;
-        
-        divDetail.appendChild(olTypes);
-        divDetail.appendChild(img);
-    
-        liPokemon.appendChild(divHeader);
-        liPokemon.appendChild(divDetail);
-        return liPokemon;
-    };
+    get url() {
+        return `https://pokeapi.co/api/v2/pokemon/${this.name}`;
+    }
 
-    static createTypesHTML = (types) => {
-        const typesList = types.map(type => {
-            const liType = document.createElement('li');
-            liType.classList.add('type', type);
-            liType.innerText = type;
-            return liType;
-        })
-        return typesList;
+    getNAbilities = (n) => {
+        return this.abilities.length > n ? this.abilities.slice(0,n) : this.abilities;
+    }
+
+    getNMoves = (n) => {
+        return this.moves.length > n ? this.moves.slice(0,n) : this.moves;
     }
 
 }

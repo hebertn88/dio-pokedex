@@ -1,33 +1,32 @@
-import Pokemon from "./pokemon-model.js";
+export default class PokeApi {
+    constructor(
+        url,
+        limit = 9,
+        offset = 0
+        ) {
+            this.url = url;
+            this.limit = limit;
+            this.offset = offset
+        }
 
-const pokeApi = {};
+    fetchPokemon = async (url = this.url, limit = this.limit, offset = this.offset) => {
+        return fetch(`${url}?limit=${limit}&offset=${offset}`)
+            .then(response => response.json())
+            .then(data => data.results)
+            .catch(error => console.log(error))
+    }
 
-function pokeApiDetailtoModel(detail) {
-    const pokemon = new Pokemon(
-        detail.id,
-        detail.name,
-        (detail.types).map(type => type.type.name),
-        (detail.sprites.other["official-artwork"].front_default)
-    );  
-    return pokemon;
-}
+    getPokemonDetail = async (url) => {
+        return fetch(url)
+            .then(response => response.json())
+            .catch(error => console.log(error));
+    }
 
-pokeApi.getPokemonDetail = async (url) => {
-    return fetch(url)
-        .then(response => response.json())
-        .then(detail => pokeApiDetailtoModel(detail))
-        .catch(error => console.log(error));
-}
-
-pokeApi.getPokemonList = async (url, limit, offset) => {
-    return fetch(`${url}?limit=${limit}&offset=${offset}`)
-        .then(response => response.json())
-        .then(data => data.results)
-        .then(pokemons => pokemons.map(poke => pokeApi.getPokemonDetail(poke.url)))
-        .then(responseDetail => Promise.all(responseDetail))
-        .then(detail => detail)
-        .catch(error => console.log(error))
-}
-  
-
-export default pokeApi;
+    fetchPokemonWithDetail = async (url = this.url, limit = this.limit, offset = this.offset) => {
+        return this.fetchPokemon(url, limit, offset)
+            .then(resp => resp.map(
+                poke => this.getPokemonDetail(poke.url)
+            ))
+            .then(pokeDetail => Promise.all(pokeDetail));
+    }
+};
