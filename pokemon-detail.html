@@ -20,18 +20,21 @@
 
 </head>
 <body>
-    <div class="background"></div>
     <article class="content-detail">
-        <div>
-            <button type="button" class="back-button">Back</button>
-        </div>
-        <div class="row">
-            <h1 class="name">Bulbasaur</h1>
-            <span class="number">#001</span>
-        </div>
-        <ol class="types">
-        </ol>
-        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png" alt="Bulbasaur">
+<!--         <section class="header">
+        </section>
+ -->        <div>
+                <button type="button" class="back-button">Back</button>
+            </div>
+            <div class="row">
+                <h1 class="name captalize"></h1>
+                <span class="number"></span>
+            </div>
+            <div class="row">
+                <ol class="types">
+                </ol>
+                <img>
+            </div>
         <section class="attributes">
             <nav>
                 <ul>
@@ -41,15 +44,17 @@
                     <li><a href="#">Moves</a></li>
                 </ul>
             </nav>
-            <div class="att-two-col">
+            <div class="data att-two-col">
                 <span>Type</span><span class="type captalize"></span>
                 <span>Height</span><span class="height captalize"></span>
                 <span>Weight</span><span class="weight captalize"></span>
                 <span>Abilities</span><span class="abilities captalize"></span>
                 <span>Moves</span><span class="moves captalize"></span>
             </div>
+            <div class="coming-soon" hidden>Coming Soon</div>
         </section>
     </article>
+    <div class="background"></div>
 
 
     <script type="module" src="assets/js/pokemon-detail.js"></script>

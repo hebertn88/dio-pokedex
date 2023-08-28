@@ -1,29 +1,22 @@
 export default class PokeHTML {
     static createCardHTML = (pokemon) => {
-        const liPokemon = document.createElement('li');
-        liPokemon.classList.add('pokemon', pokemon.type);
+        const liPokemon = this.createElementHTML('li', ['pokemon', pokemon.type]);
     
         // header
-        const divHeader = document.createElement('div');
-        divHeader.classList.add('header');
+        const divHeader = this.createElementHTML('div', ['header']);
         
-        const spamNumber = document.createElement('spam');
-        spamNumber.classList.add('number');
-        spamNumber.innerText = '#' + String(pokemon.number).padStart(3,'0');
+        const spamNumber = this.createElementHTML('spam', ['number'],
+            `#${String(pokemon.number).padStart(3,'0')}`);
     
-        const spamName = document.createElement('spam');
-        spamName.classList.add('name');
-        spamName.innerText = pokemon.name;
+        const spamName = this.createElementHTML('spam', ['name'], pokemon.name);
         
         divHeader.appendChild(spamNumber);
         divHeader.appendChild(spamName);
         
         // detail
-        const divDetail = document.createElement('div');
-        divDetail.classList.add('detail');
+        const divDetail = this.createElementHTML('div', ['detail']);
         
-        const olTypes = document.createElement('ol');
-        olTypes.classList.add('types');
+        const olTypes = this.createElementHTML('ol', ['types']);
         
         this.createTypesHTML(pokemon.types).map(type => olTypes.appendChild(type));
         
@@ -39,12 +32,16 @@ export default class PokeHTML {
     };
 
     static createTypesHTML = (types) => {
-        const typesList = types.map(type => {
-            const liType = document.createElement('li');
-            liType.classList.add('type', type);
-            liType.innerText = type;
-            return liType;
-        })
-        return typesList;
+        return types.map(type => this.createElementHTML(
+            'li', ['type', type], type))
+    }
+
+    static createElementHTML = (type, classList = [], innerText = "") => {
+        const element = document.createElement(type);
+
+        if (classList != "") classList.map(c => element.classList.add(c));
+        if (innerText != "") element.innerText = innerText;
+        
+        return element;
     }
 }

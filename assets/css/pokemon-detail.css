@@ -3,18 +3,11 @@
     top: 0;
     z-index: -1;
     width: 100%;
-    height: 50vh;
-}
-
-.wraper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
     height: 100vh;
 }
 
 .content-detail {
+    z-index: 0;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -25,7 +18,7 @@
     color: #fff;
     font-size:  .6rem;
     border: none;
-    padding: .9rem .7rem;
+    padding: .95rem .7rem;
     border-radius: 50%;
     transition-duration: .5s;
     transition-timing-function: ease-in-out;
@@ -36,6 +29,12 @@
 
 .content-detail .back-button:hover {
     background-color: #5b66b8;
+    box-shadow: .1rem .1rem .2rem rgba(50, 50, 50, 1);
+}
+
+.content-detail .wraper-types {
+    display: flex;
+    flex-direction: column;
 }
 
 .content-detail .row {
@@ -65,10 +64,15 @@
     transition-timing-function: ease-in-out;
 }
 
+.content-detail .types .type:hover {
+    transform: scale(1.2);
+    border: #fff solid 1px;
+}
+
 .content-detail img {
     align-self: center;
-    max-width: 50%;
-    margin-bottom: -4rem;
+    max-width: 40%;
+    margin-bottom: -3rem;
     z-index: 1;
 }
 
@@ -77,7 +81,7 @@
     padding: 1rem;
     padding-top: 3.5rem;
     background-color: #fff;
-    min-height: 60vh;
+
     border-radius: 1rem;
     box-shadow: 0 0 2rem rgba(50, 50, 50, .1);
     color: #777;
@@ -94,9 +98,11 @@
 
 .attributes nav ul li a {
     display: block;
+    height: 100%;
     text-decoration: none;
     padding: 1rem .5rem;
     color: #777;
+    transition-duration: unset;
 }
 
 .attributes nav ul li a:hover {
@@ -124,14 +130,36 @@
     padding-top: 2rem;
 }
 
-.captalize {
-    text-transform: capitalize;
+.coming-soon {
+    text-align: center;
+    padding: 4rem;
 }
 
+
 @media screen and (min-width: 768px) {
+    .background {
+        height: 60vh;
+    }
+
     .content-detail {
       max-width: 768px;
       height: auto;
       margin: 1rem auto;
+    }
+
+    .content-detail .back-button {
+        margin-top: 0;
+    }
+
+    .content-detail .row {
+        margin: 0 3rem;
+    }
+
+    .content-detail .types {
+        gap: 1rem;
+    }
+
+    .content-detail img {
+      max-width: 20%;
     }
 }
